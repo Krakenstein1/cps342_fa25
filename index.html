@@ -1,0 +1,207 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation Sidebar</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="site-wrap">
+    <!-- Navigation Sidebar -->
+    <nav class="site-nav" id="site-nav">
+      <div class="name">
+        Pepper
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <path d="M11.5,22C11.64,22 11.77,22 11.9,21.96C12.55,21.82 13.09,21.38 13.34,20.78C13.44,20.54 13.5,20.27 13.5,20H9.5A2,2 0 0,0 11.5,22M18,10.5C18,7.43 15.86,4.86 13,4.18V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V4.18C7.13,4.86 5,7.43 5,10.5V16L3,18V19H20V18L18,16M19.97,10H21.97C21.82,6.79 20.24,3.97 17.85,2.15L16.42,3.58C18.46,5 19.82,7.35 19.97,10M6.58,3.58L5.15,2.15C2.76,3.97 1.18,6.79 1,10H3C3.18,7.35 4.54,5 6.58,3.58Z"></path>
+        </svg>
+      </div>
+
+      <!-- Main Navigation Menu -->
+      <ul class="menu">
+        <li class="menu-item active">
+          <a href="#projects" main-tab="project" class="active">Projects</a>
+          <ul class="submenu">
+            <li><a href="#0">Create New Project</a></li>
+            <li><a href="#0">Modify Project</a></li>
+          </ul>
+        </li>
+        <li class="menu-item"><a href="#calendar" main-tab="calendar">Calendar</a></li>
+        <li class="menu-item"><a href="#files" main-tab="files">Files</a></li>
+        <li class="menu-item"><a href="#sponsors" main-tab="sponsors">Sponsors</a></li>
+        <li class="menu-item"><a href="#reports" main-tab="reports">Reports</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main>
+      <div id="main-content">
+        <!-- Projects Section -->
+        <div id="project" class="main-content active">
+          <header>
+            <h1 class="title">Projects</h1>
+
+            <!-- Navigation Tabs -->
+            <nav class="nav-tabs" id="nav-tabs">
+              <a href="#projects" class="active" data-tab="projects">Projects</a>
+              <a href="#tasks" data-tab="tasks">Tasks</a>
+              <a href="#updates" data-tab="updates">Updates</a>
+            </nav>
+
+            <!-- Tab Content Sections -->
+            <div id="tab-content">
+              <!-- Projects Tab Content -->
+              <div id="projects" class="tab-content active">
+                <div class="content-columns">
+                  <div class="col">
+                    <div class="item">Security Software</div>
+                  </div>
+                  <div class="col">
+                    <div class="item">Item Picker</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tasks Tab Content -->
+              <div id="tasks" class="tab-content">
+                <div class="content-columns">
+                  <div class="col">
+                    <div class="item">Implement updated virus detection</div>
+                    <div class="item">Get new browser information</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Updates Tab Content -->
+              <div id="updates" class="tab-content">
+                <div class="content-columns">
+                  <div class="col">
+                    <div class="item">New tasks for Security Software</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </header>
+        </div>
+
+        <!-- Files Section -->
+        <div id="files" class="main-content">
+          <h1>Files</h1>
+
+          <!-- Search and Filter -->
+          <div class="file-controls">
+            <input type="text" id="file-search" class="search-input" placeholder="Search files..." />
+            <button class="filter-btn">Filter</button>
+          </div>
+
+          <!-- File Table -->
+          <table id="file-table" class="file-table">
+            <thead>
+              <tr>
+                <th>File Name</th>
+                <th>Size</th>
+                <th>Uploaded On</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="file-list">
+              <!-- Example file entry -->
+              <tr>
+                <td>Project_Plan.pdf</td>
+                <td>1.2 MB</td>
+                <td>2024-11-10</td>
+                <td>
+                  <button class="btn btn-download">Download</button>
+                  <button class="btn btn-delete">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Financial_Report.xlsx</td>
+                <td>3.4 MB</td>
+                <td>2024-11-05</td>
+                <td>
+                  <button class="btn btn-download">Download</button>
+                  <button class="btn btn-delete">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Presentation.pptx</td>
+                <td>2.8 MB</td>
+                <td>2024-10-20</td>
+                <td>
+                  <button class="btn btn-download">Download</button>
+                  <button class="btn btn-delete">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Calendar Section -->
+        <div id="calendar" class="main-content">
+          <h1>Calendar</h1>
+
+          <div class="calendar-container">
+            <header class="calendar-header">
+              <button class="prev-month" onclick="changeMonth(-1)">&#8249;</button>
+              <h2 id="month-year"></h2>
+              <button class="next-month" onclick="changeMonth(1)">&#8250;</button>
+            </header>
+
+            <div class="calendar-grid">
+              <div class="calendar-day"></div>
+              <div class="calendar-day"></div>
+              <div class="calendar-day"></div>
+              <div class="calendar-day"></div>
+              <div class="calendar-day"></div>
+              <div class="calendar-day"></div>
+              <div class="calendar-day"></div>
+
+              <div id="calendar-days" class="calendar-days"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div id="reports" class="main-content">
+          <h1>Reports</h1>
+        
+          <!-- Search and Filter -->
+          <div class="report-controls">
+            <input type="text" id="report-search" class="search-input" placeholder="Search reports..." />
+            <button class="filter-btn">Filter</button>
+          </div>
+        
+          <!-- Report Table -->
+          <table id="report-table" class="report-table">
+            <thead>
+              <tr>
+                <th>Report Name</th>
+                <th>Created On</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="report-list">
+              <!-- Rows will be dynamically generated by JavaScript -->
+            </tbody>
+          </table>
+        
+          <!-- Pagination Controls -->
+          <div class="pagination">
+            <button class="prev-page">Previous</button>
+            <span class="page-number">Page 1</span>
+            <button class="next-page">Next</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+
+</html>
