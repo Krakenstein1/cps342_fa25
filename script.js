@@ -160,63 +160,211 @@ function renderCalendar() {
 
 // Report search functionality
 function handleReportSearch() {
-  document
-    .getElementById("report-search")
-    .addEventListener("input", function () {
-      const searchTerm = this.value.toLowerCase();
-      const rows = document.querySelectorAll("#report-list tr");
-      rows.forEach((row) => {
-        const reportName = row.cells[0].textContent.toLowerCase();
-        row.style.display = reportName.includes(searchTerm) ? "" : "none";
-      });
+  const searchInput = document.getElementById('report-search');
+  const departmentFilter = document.getElementById('report-department-filter');
+  const reportTable = document.getElementById('report-table');
+
+  searchInput.addEventListener('input', () => {
+    filterReports();
+  });
+
+  departmentFilter.addEventListener('change', () => {
+    filterReports();
+  });
+
+  function filterReports() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const selectedDepartment = departmentFilter.value;
+
+    const rows = reportTable.querySelectorAll('tbody tr');
+
+    rows.forEach(row => {
+      const reportName = row.cells[0].textContent.toLowerCase();
+      const reportDepartment = row.cells[2].textContent.toLowerCase(); // Assuming department is in the 3rd cell
+
+      let isVisible = true;
+      if (selectedDepartment !== 'all') {
+        isVisible = isVisible && reportDepartment === selectedDepartment;
+      }
+      isVisible = isVisible && reportName.includes(searchTerm);
+
+      row.style.display = isVisible ? '' : 'none';
     });
+  }
 }
 
-// Load and dynamically render reports
-function loadReports() {
-  const reportTable = document.querySelector("#report-list tbody");
-  reportTable.innerHTML = "<tr><td colspan='3'>Loading...</td></tr>"; // Show loading indicator
+function handleViewButton() {
+  const viewButtons = document.querySelectorAll(".btn-view");
 
-  fetch("reports/reports.json")
-    .then((response) => {
-      if (!response.ok) throw new Error("Failed to load report data");
-      return response.json();
-    })
-    .then((reports) => {
-      reportTable.innerHTML = ""; // Clear loading indicator
+  viewButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const reportRow = event.target.closest("tr");
+      const reportName = reportRow.cells[0].textContent.trim();
 
-      reports.forEach((report) => {
-        const row = document.createElement("tr");
+      // Map report names to URLs
+      const reportUrls = {
+        "Quarterly Financial Summary":
+          "reports/Quarterly_Financial_Summary.pdf",
+        "Financial Report": "reports/Financial_Report.xlsx",
+        "Annual Performance Review": "reports/Annual_Performance_Review.pdf",
+        "Ad Revenue Report": "reports/Ad_Revenue_Report.xlsx"
+      };
 
-        // Report Name
-        const nameCell = document.createElement("td");
-        nameCell.textContent = report.name || "Unnamed Report";
-        row.appendChild(nameCell);
+      const reportUrl = reportUrls[reportName];
 
-        // View Button
-        const actionCell = document.createElement("td");
-        const viewButton = document.createElement("button");
-        viewButton.textContent = "View";
-        viewButton.classList.add("btn-view");
-
-        if (report.url) {
-          viewButton.addEventListener("click", () => window.open(report.url, "_blank"));
-        } else {
-          viewButton.disabled = true;
-          viewButton.textContent = "No URL";
-        }
-
-        actionCell.appendChild(viewButton);
-        row.appendChild(actionCell);
-
-        reportTable.appendChild(row);
-      });
-    })
-    .catch((error) => {
-      console.error("Error loading reports:", error);
-      reportTable.innerHTML = "<tr><td colspan='3'>Error loading reports.</td></tr>";
+      if (reportUrl) {
+        window.open(reportUrl, "_blank");
+      } else {
+        alert("Report not found.");
+      }
     });
+  });
 }
+
+// Pagination functionality
+function handlePagination() {
+  let currentPage = 1;
+  const rowsPerPage = 5;
+  const rows = document.querySelectorAll("#report-list tr");
+  const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+  function showPage(page) {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    rows.forEach((row, index) => {
+      row.style.display = index >= start && index < end ? "" : "none";
+    });
+    document.querySelector(".page-number").textContent = `Page ${page}`;
+  }
+
+  document.querySelector(".prev-page").addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      showPage(currentPage);
+    }
+  });
+
+  document.querySelector(".next-page").addEventListener("click", () => {
+    if (currentPage < totalPages) {
+      currentPage++;
+      showPage(currentPage);
+    }
+  });
+
+  // Initialize the table with the first page
+  showPage(currentPage);
+}
+
+function handleFileActions() {
+  const downloadButtons = document.querySelectorAll(".btn-download");
+  const deleteButtons = document.querySelectorAll(".btn-delete");
+
+  downloadButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const fileRow = event.target.closest("tr");
+      const fileName = fileRow.cells[0].textContent.trim();
+
+      // Map file names to download URLs
+      const fileUrls = {
+        "Project_Plan.pdf": "files/Project_Plan.pdf",
+        "Project_Milestones.pdf": "files/Project_Milestones.pdf",
+        "Presentation.pptx": "files/Presentation.pptx",
+        "Polar_Bear.xlsx": "files/Polar_Bear.xlsx"
+      };
+
+      const fileUrl = fileUrls[fileName];
+
+      if (fileUrl) {
+        // Create a temporary anchor element
+        const downloadLink = document.createElement("a");
+        downloadLink.href = fileUrl;
+        downloadLink.download = fileName;
+
+        // Simulate a click to trigger the download
+        downloadLink.click();
+
+        // Clean up the temporary element
+        downloadLink.remove();
+      } else {
+        alert("File not found.");
+      }
+    });
+  });
+
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const fileRow = event.target.closest("tr");
+      fileRow.remove();
+
+      // Handle deletion from server or local storage (if applicable) Not added for demonstration purposes
+      // ... (your deletion logic here)
+    });
+  });
+}
+
+function handleFileSearchAndFilter() {
+  const searchInput = document.getElementById('file-search');
+  const filterType = document.getElementById('file-type-filter');
+  const fileTable = document.getElementById('file-table');
+
+  searchInput.addEventListener('input', () => {
+    filterFiles();
+  });
+
+  filterType.addEventListener('change', () => {
+    filterFiles();
+  });
+
+  function filterFiles() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const selectedType = filterType.value.toLowerCase();
+
+    const rows = fileTable.querySelectorAll('tbody tr');
+
+    rows.forEach(row => {
+      const fileName = row.cells[0].textContent.toLowerCase();
+      const fileExtension = fileName.split('.').pop();
+
+      let isVisible = true;
+      if (selectedType !== 'all') {
+        isVisible = isVisible && fileExtension === selectedType;
+      }
+      isVisible = isVisible && fileName.includes(searchTerm);
+
+      row.style.display = isVisible ? '' : 'none';
+    });
+  }
+}
+
+document.addEventListener('click', (event) => {
+  if (event.target.classList.contains('add-task-button')) {
+    // Find the closest column to the button
+    const column = event.target.closest('.col');
+
+    // Create a new task item element
+    const newTaskItem = document.createElement('div');
+    newTaskItem.classList.add('item');
+
+    // Create elements for the task text and edit button
+    const newTaskText = document.createElement('span');
+    newTaskText.classList.add('task-text');
+    newTaskText.textContent = 'New Task';
+
+    const newEditButton = document.createElement('button');
+    newEditButton.classList.add('edit-button');
+    newEditButton.textContent = 'Edit';
+
+    // Append the elements to the task item
+    newTaskItem.appendChild(newTaskText);
+    newTaskItem.appendChild(newEditButton);
+
+    column.appendChild(newTaskItem)
+
+    // Find the appropriate container to append the new task item
+    const tasksContainer = document.querySelector('.task-columns');
+    tasksContainer.appendChild(newTaskItem);
+  }
+});
 
 // Initialize all functionalities
 document.addEventListener("DOMContentLoaded", () => {
@@ -225,5 +373,8 @@ document.addEventListener("DOMContentLoaded", () => {
   handleMenuInteraction();
   renderCalendar();
   handleReportSearch();
-  loadReports();
+  handleViewButton();
+  handleFileActions();
+  handleFileSearchAndFilter();
+  handlePagination();
 });

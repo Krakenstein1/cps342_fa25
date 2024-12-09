@@ -1,581 +1,638 @@
 /* General Body Styles */
 body {
-    background: #89909f;
-    padding: 3rem 0 0 3rem;
-    font-size: 12px;
-    font-family: Arial, sans-serif;
-    height: 100vh;
-    margin: 0;
-    overflow: hidden;
-    display: flex;
-  }
-  
-  /* Main Grid Layout */
-  .site-wrap {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    min-height: 100vh;
-  }
-  
-  /* Navigation Sidebar */
+  background: #89909f;
+  padding: 3rem 0 0 3rem;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+}
+
+/* Main Grid Layout */
+.site-wrap {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+
+/* Navigation Sidebar */
+.site-nav {
+  width: 250px;
+  background: #0b121b;
+  color: white;
+  padding: 20px;
+  border-top-left-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  position: relative;
+  padding: 0 2.5rem 0.5rem 2rem;
+}
+
+.name svg {
+  fill: #fff;
+  width: 16px;
+  height: 16px;
+  margin-left: 10px;
+}
+
+.name::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: #4777ce;
+  border-radius: 50%;
+  position: absolute;
+  top: 6px;
+  right: -2px;
+}
+
+/* Menu Styles */
+.menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+/* Styling for Menu Item Links */
+.menu-item a {
+  color: #ccc;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hover and Focus States */
+.menu-item a:hover,
+.menu-item a:focus {
+  background-color: #444;
+  color: #fff;
+}
+
+/* Active Menu Item Styles */
+.menu-item.active > a {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Active State Highlight with Before Pseudo-element */
+.menu-item > a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: #4676cd; /* Highlight color */
+  width: 0; /* Start with width 0 */
+  border-radius: 4px;
+  transition: width 0.3s ease-out; /* Smooth transition for width */
+}
+
+/* When Menu Item is Active, expand the blue bar */
+.menu-item.active > a::before {
+  width: 5px; /* Width when active */
+}
+
+/* Submenu Styles */
+.submenu {
+  list-style-type: none;
+  padding-left: 20px;
+  display: none;
+}
+
+.menu-item.open > .submenu {
+  display: block;
+}
+
+.submenu a {
+  color: #aaa;
+}
+
+/* Submenu Hover State */
+.submenu a:hover {
+  color: #fff;
+}
+
+/* Active State Highlight */
+.site-nav .active > a {
+  background: linear-gradient(to right, #101b2d, transparent);
+}
+
+.site-nav .active > a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: #4676cd;
+  width: 5px;
+  border-radius: 4px;
+}
+
+/* Main Content */
+main {
+  background: #ebecee;
+  border-top-left-radius: 2rem;
+  margin-left: -2rem;
+  position: relative;
+}
+
+main > header {
+  padding: 3rem;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 2px solid #ccc;
+}
+
+.nav-tabs a {
+  padding: 0.5rem 1rem;
+  color: #007bff;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  position: relative;
+  cursor: pointer;
+}
+
+.nav-tabs a.active {
+  color: #0056b3;
+  font-weight: bold;
+}
+
+/* Active Tab Underline */
+.nav-tabs a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #007bff;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav-tabs a.active::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+  padding: 1rem 0;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Content Columns */
+.content-columns {
+  padding: 3rem;
+  display: flex;
+  background: #e5e5e9;
+}
+
+.content-columns .col {
+  width: 200px;
+  min-height: 500px;
+  padding: 1rem;
+  margin-right: 1rem;
+  background: #ebecee;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.04);
+}
+
+.content-columns .col:nth-child(1) {
+  border-top: 4px solid #50aaee;
+}
+
+.content-columns .col:nth-child(2) {
+  border-top: 4px solid #d56ec7;
+}
+
+.content-columns .col:nth-child(3) {
+  border-top: 4px solid #e37e55;
+}
+
+.content-columns .col:nth-child(4) {
+  border-top: 4px solid #ebbd41;
+}
+
+/* Task Columns */
+.task-columns {
+  padding: 3rem;
+  display: flex;
+  background: #e5e5e9;
+}
+
+.task-columns .col {
+  width: 200px;
+  min-height: 500px;
+  padding: 1rem;
+  margin-right: 1rem;
+  background: #ebecee;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.04);
+}
+
+.task-columns .col:nth-child(1) {
+  border-top: 4px solid #50aaee;
+}
+
+.add-task-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.edit-button {
+  background-color: #50aaee;
+  color: white;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Item Component */
+.item {
+  background: #f5f5f5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.07);
+  min-height: 50px;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Note Component */
+.note {
+  width: calc(100% - 6rem);
+  margin: 2rem;
+  background: #171c26;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.note h3 {
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.note p {
+  color: #717783;
+}
+
+/* Hide all main content areas initially */
+.main-content {
+  display: none;
+}
+
+.main-content.active {
+  display: block;
+}
+
+#project header {
+  padding-left: 30px; /* Move the header content to the right */
+  padding-top: 20px; /* Move the header content down */
+}
+
+.title {
+  margin-left: 30px; /* Move the title further to the right */
+  margin-top: 30px; /* Move the title down */
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
   .site-nav {
-    width: 250px;
-    background: #0b121b;
-    color: white;
-    padding: 20px;
-    border-top-left-radius: 2rem;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-  }
-  
-  .name {
-    display: flex;
-    align-items: center;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    position: relative;
-    padding: 0 2.5rem 0.5rem 2rem;
-  }
-  
-  .name svg {
-    fill: #fff;
-    width: 16px;
-    height: 16px;
-    margin-left: 10px;
-  }
-  
-  .name::after {
-    content: "";
-    width: 8px;
-    height: 8px;
-    background: #4777ce;
-    border-radius: 50%;
-    position: absolute;
-    top: 6px;
-    right: -2px;
-  }
-  
-  /* Menu Styles */
-  .menu {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .menu-item {
-    margin-bottom: 10px;
-    position: relative;
-  }
-  
-  /* Styling for Menu Item Links */
-  .menu-item a {
-    color: #ccc;
-    text-decoration: none;
-    padding: 10px;
-    display: block;
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  /* Hover and Focus States */
-  .menu-item a:hover,
-  .menu-item a:focus {
-    background-color: #444;
-    color: #fff;
-  }
-  
-  /* Active Menu Item Styles */
-  .menu-item.active > a {
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  /* Active State Highlight with Before Pseudo-element */
-  .menu-item > a::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    background-color: #4676cd; /* Highlight color */
-    width: 0; /* Start with width 0 */
-    border-radius: 4px;
-    transition: width 0.3s ease-out; /* Smooth transition for width */
-  }
-  
-  /* When Menu Item is Active, expand the blue bar */
-  .menu-item.active > a::before {
-    width: 5px; /* Width when active */
-  }
-  
-  /* Submenu Styles */
-  .submenu {
-    list-style-type: none;
-    padding-left: 20px;
-    display: none;
-  }
-  
-  .menu-item.open > .submenu {
-    display: block;
-  }
-  
-  .submenu a {
-    color: #aaa;
-  }
-  
-  /* Submenu Hover State */
-  .submenu a:hover {
-    color: #fff;
-  }
-  
-  /* Active State Highlight */
-  .site-nav .active > a {
-    background: linear-gradient(to right, #101b2d, transparent);
-  }
-  
-  .site-nav .active > a::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    background: #4676cd;
-    width: 5px;
-    border-radius: 4px;
-  }
-  
-  /* Main Content */
-  main {
-    background: #ebecee;
-    border-top-left-radius: 2rem;
-    margin-left: -2rem;
-    position: relative;
-  }
-  
-  main > header {
-    padding: 3rem;
-  }
-  
-  /* Navigation Tabs */
-  .nav-tabs {
-    display: flex;
-    gap: 1rem;
-    border-bottom: 2px solid #ccc;
-  }
-  
-  .nav-tabs a {
-    padding: 0.5rem 1rem;
-    color: #007bff;
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    position: relative;
-    cursor: pointer;
-  }
-  
-  .nav-tabs a.active {
-    color: #0056b3;
-    font-weight: bold;
-  }
-  
-  /* Active Tab Underline */
-  .nav-tabs a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 3px;
-    background-color: #007bff;
-    transform: scaleX(0);
-    transform-origin: bottom right;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .nav-tabs a.active::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
-  
-  /* Tab Content */
-  .tab-content {
-    display: none;
-    padding: 1rem 0;
-  }
-  
-  .tab-content.active {
-    display: block;
-  }
-  
-  /* Content Columns */
-  .content-columns {
-    padding: 3rem;
-    display: flex;
-    background: #e5e5e9;
-  }
-  
-  .content-columns .col {
     width: 200px;
-    min-height: 500px;
-    padding: 1rem;
-    margin-right: 1rem;
-    background: #ebecee;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.04);
-  }
-  
-  .content-columns .col:nth-child(1) {
-    border-top: 4px solid #50aaee;
-  }
-  
-  .content-columns .col:nth-child(2) {
-    border-top: 4px solid #d56ec7;
-  }
-  
-  .content-columns .col:nth-child(3) {
-    border-top: 4px solid #e37e55;
-  }
-  
-  .content-columns .col:nth-child(4) {
-    border-top: 4px solid #ebbd41;
-  }
-  
-  /* Item Component */
-  .item {
-    background: #f5f5f5;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.07);
-    min-height: 50px;
-    border-radius: 5px;
-    margin-bottom: 0.5rem;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  /* Note Component */
-  .note {
-    width: calc(100% - 6rem);
-    margin: 2rem;
-    background: #171c26;
-    border-radius: 10px;
-    padding: 1rem;
-  }
-  
-  .note h3 {
-    font-size: 0.9rem;
-    margin-bottom: 0.4rem;
-  }
-  
-  .note p {
-    color: #717783;
-  }
-  
-  /* Hide all main content areas initially */
-  .main-content {
-    display: none;
-  }
-  
-  .main-content.active {
-    display: block;
-  }
-  
-  #project header {
-    padding-left: 30px; /* Move the header content to the right */
-    padding-top: 20px; /* Move the header content down */
-  }
-  
-  .title {
-    margin-left: 30px; /* Move the title further to the right */
-    margin-top: 30px; /* Move the title down */
-  }
-  
-  /* Responsiveness */
-  @media (max-width: 768px) {
-    .site-nav {
-      width: 200px;
-    }
-  
-    main {
-      margin-left: 200px;
-      width: calc(100% - 200px);
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .site-wrap {
-      grid-template-columns: 1fr;
-    }
-  
-    main {
-      margin-left: 0;
-      width: 100%;
-    }
-  }
-  
-  /* Files Page Styles */
-  #files {
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-  }
-  
-  .file-controls {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .search-input {
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 70%;
-  }
-  
-  .filter-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .filter-btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .file-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
-  .file-table th,
-  .file-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .file-table th {
-    background-color: #f8f9fa;
-    color: #333;
-  }
-  
-  .file-table tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .file-table td button {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 5px;
-  }
-  
-  .btn-download {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .btn-download:hover {
-    background-color: #218838;
-  }
-  
-  .btn-delete {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .btn-delete:hover {
-    background-color: #c82333;
-  }
-  
-  /* Responsiveness */
-  @media (max-width: 768px) {
-    .file-controls {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .search-input {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-  }
-  
-  /* Styling for the reports section */
-  #reports {
-    padding: 20px;
-  }
-  
-  #reports .search-input {
-    padding: 8px;
-    width: 300px;
-    margin-right: 10px;
-  }
-  
-  .report-controls {
-    display: flex;
-    margin-bottom: 20px;
-  }
-  
-  .report-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .report-table th,
-  .report-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-  }
-  
-  .report-table th {
-    background-color: #f4f4f4;
-  }
-  
-  .report-table .status {
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-weight: bold;
-  }
-  
-  .report-table .status.completed {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .report-table .status.in-progress {
-    background-color: #ffc107;
-    color: black;
-  }
-  
-  .report-table .status.pending {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .report-table button {
-    margin-right: 5px;
-  }
-  
-  .pagination {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .pagination .prev-page,
-  .pagination .next-page {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .pagination .page-number {
-    margin: 0 15px;
-  }
-  
-  .calendar-container {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 350px;
-    overflow: hidden;
-  }
-  
-  .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #3498db;
-    color: white;
-    padding: 10px 20px;
-  }
-  
-  .calendar-header h2 {
-    margin: 0;
-    font-size: 18px;
-  }
-  
-  button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    opacity: 0.8;
-  }
-  
-  #calendar {
-    width: 100%;
-    max-width: 600px;
-    margin: auto;
-    text-align: center;
-  }
-  
-  #month-year {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  #calendar-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr); /* 7 equal-width columns */
-    gap: 2px; /* Small gap between cells */
-  }
-  
-  .calendar-cell {
-    border: 1px solid #ccc;
-    padding: 8px; /* Adjusted padding for better fit */
-    text-align: center;
-    box-sizing: border-box;
-    font-size: 14px;
-    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effect */
-  }
-  
-  .day-heading {
-    font-weight: bold;
-    background-color: #f0f0f0;
-  }
-  
-  .today {
-    background-color: #ffeb3b;
-    font-weight: bold;
-  }
-  
-  .inactive {
-    background-color: #e0e0e0;
   }
 
-  /* Status Styles */
-.status.completed {
-  color: green;
+  main {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+  }
 }
 
-.status.in-progress {
-  color: orange;
+@media (max-width: 480px) {
+  .site-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
-.status.pending {
-  color: gray;
+/* Files Page Styles */
+#files {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
 }
 
-/* Button Styles */
-.btn-view {
+.file-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 70%;
+}
+
+.filter-btn {
+  padding: 10px 20px;
   background-color: #007bff;
   color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  background-color: #0056b3;
+}
+
+.file-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.file-table th,
+.file-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.file-table th {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.file-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.file-table td button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.btn-view {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-view:hover {
+  background-color: #218838;
 }
 
 .btn-download {
   background-color: #28a745;
   color: white;
+}
+
+.btn-download:hover {
+  background-color: #218838;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .file-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+/* Styling for the reports section */
+#reports {
+  padding: 20px;
+}
+
+#reports .search-input {
+  padding: 8px;
+  width: 300px;
+  margin-right: 10px;
+}
+
+.report-controls {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.report-table th,
+.report-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+.report-table th {
+  background-color: #f4f4f4;
+}
+
+.report-table .status {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.report-table .status.completed {
+  background-color: #28a745;
+  color: white;
+}
+
+.report-table .status.in-progress {
+  background-color: #ffc107;
+  color: black;
+}
+
+.report-table .status.pending {
+  background-color: #dc3545;
+  color: white;
+}
+
+.report-table button {
+  margin-right: 5px;
+}
+
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination .prev-page,
+.pagination .next-page {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.pagination .page-number {
+  margin: 0 15px;
+}
+
+.calendar-container {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  overflow: hidden;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+}
+
+.calendar-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#calendar {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+#month-year {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 equal-width columns */
+  gap: 2px; /* Small gap between cells */
+}
+
+.calendar-cell {
+  border: 1px solid #ccc;
+  padding: 8px; /* Adjusted padding for better fit */
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 14px;
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effect */
+}
+
+.calendar-cell:hover {
+  background-color: #eee; /* New background color on hover */
+  transform: scale(1.02); /* Slight zoom effect on hover */
+}
+
+.day-heading {
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+.today {
+  background-color: #ffeb3b;
+  font-weight: bold;
+}
+
+.inactive {
+  background-color: #e0e0e0;
+}
+
+/* CSS (modal styling) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
 }
